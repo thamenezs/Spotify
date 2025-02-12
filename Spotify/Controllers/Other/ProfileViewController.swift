@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         return tableView
     }()
     
+    private var models = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
@@ -34,7 +36,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     private func fetchProfile() {
         APICaller.shared.getCurrentUserProfile { [weak self] result in
             DispatchQueue.main.async {
-                self?.failedToGetProfile()
+                switch result {
+                case .success(let model):
+                    self?.updateUI(with: model)
+                case .failure(let error):
+                    print("Profile Error: \(error.localizedDescription)")
+                    self?.failedToGetProfile()
+                }
             }
         }
     }
@@ -42,6 +50,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     private func updateUI(with model: UserProfile) {
         tableView.isHidden = false
         // configure table models
+        models.append("Full Name: \(model.display_name)")
+        models.append("Email Adress: \(model.email)")
+        models.append("User ID: \(model.id)")
+        models.append("Plan: \(model.product)")
+        
         tableView.reloadData()
     }
     
@@ -56,12 +69,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // MARK: Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Foo"
+        cell.textLabel?.text = models[indexPath.row]
         cell.selectionStyle = .none
         return cell
     }
