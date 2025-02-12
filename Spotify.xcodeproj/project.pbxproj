@@ -34,6 +34,7 @@
 		D6385E542D51798500120301 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E532D51798500120301 /* UserProfile.swift */; };
 		D6385E562D52473900120301 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E552D52473800120301 /* Extensions.swift */; };
 		D6385E582D53EB6A00120301 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E572D53EB6A00120301 /* AuthResponse.swift */; };
+		D6385E5A2D5551F400120301 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E592D5551F400120301 /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		D6385E532D51798500120301 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D6385E552D52473800120301 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D6385E572D53EB6A00120301 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		D6385E592D5551F400120301 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				D6385E512D51797600120301 /* Artist.swift */,
 				D6385E532D51798500120301 /* UserProfile.swift */,
 				D6385E572D53EB6A00120301 /* AuthResponse.swift */,
+				D6385E592D5551F400120301 /* Settings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				D6385E402D5178E300120301 /* ProfileViewController.swift in Sources */,
 				D6385E322D51784300120301 /* TabBarViewController.swift in Sources */,
 				D6385E4C2D51794C00120301 /* HapticsManager.swift in Sources */,
+				D6385E5A2D5551F400120301 /* Settings.swift in Sources */,
 				D6385E582D53EB6A00120301 /* AuthResponse.swift in Sources */,
 				D6385E502D51796D00120301 /* AudioTrack.swift in Sources */,
 				D6385E002D514FB600120301 /* HomeViewController.swift in Sources */,
