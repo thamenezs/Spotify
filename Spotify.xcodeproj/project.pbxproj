@@ -36,6 +36,8 @@
 		D6385E562D52473900120301 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E552D52473800120301 /* Extensions.swift */; };
 		D6385E582D53EB6A00120301 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E572D53EB6A00120301 /* AuthResponse.swift */; };
 		D6385E5A2D5551F400120301 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6385E592D5551F400120301 /* Settings.swift */; };
+		D6B6FE2E2D63F80D0036E3B8 /* NewReleasesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE2D2D63F80D0036E3B8 /* NewReleasesResponse.swift */; };
+		D6B6FE302D63F9EC0036E3B8 /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE2F2D63F9EC0036E3B8 /* APIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		D6385E552D52473800120301 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D6385E572D53EB6A00120301 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		D6385E592D5551F400120301 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D6B6FE2D2D63F80D0036E3B8 /* NewReleasesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesResponse.swift; sourceTree = "<group>"; };
+		D6B6FE2F2D63F9EC0036E3B8 /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +210,8 @@
 				D6385E532D51798500120301 /* UserProfile.swift */,
 				D6385E572D53EB6A00120301 /* AuthResponse.swift */,
 				D6385E592D5551F400120301 /* Settings.swift */,
+				D6B6FE2D2D63F80D0036E3B8 /* NewReleasesResponse.swift */,
+				D6B6FE2F2D63F9EC0036E3B8 /* APIImage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -450,11 +456,13 @@
 				D6385E4E2D51796200120301 /* Playlist.swift in Sources */,
 				D6385E482D51792D00120301 /* AuthManager.swift in Sources */,
 				D6385E462D51790A00120301 /* SearchResultsViewController.swift in Sources */,
+				D6B6FE302D63F9EC0036E3B8 /* APIImage.swift in Sources */,
 				D6385E3C2D5178CB00120301 /* WelcomeViewController.swift in Sources */,
 				D6385E402D5178E300120301 /* ProfileViewController.swift in Sources */,
 				D6385E322D51784300120301 /* TabBarViewController.swift in Sources */,
 				D6385E4C2D51794C00120301 /* HapticsManager.swift in Sources */,
 				D6385E5A2D5551F400120301 /* Settings.swift in Sources */,
+				D6B6FE2E2D63F80D0036E3B8 /* NewReleasesResponse.swift in Sources */,
 				D6385E582D53EB6A00120301 /* AuthResponse.swift in Sources */,
 				D6385E502D51796D00120301 /* AudioTrack.swift in Sources */,
 				D6385E002D514FB600120301 /* HomeViewController.swift in Sources */,

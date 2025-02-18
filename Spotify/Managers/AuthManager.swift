@@ -42,18 +42,17 @@ final class AuthManager {
         return UserDefaults.standard.string(forKey: "refresh_token")
     }
     
-    private var tokenExpirationData: Date? {
-        return UserDefaults.standard.object(forKey: "expirationData") as? Date
+    private var tokenExpirationDate: Date? {
+        return UserDefaults.standard.object(forKey: "expirationDate") as? Date
     }
     
     private var shouldRefreshToken: Bool {
-        guard let expirationDate = tokenExpirationData else {
+        guard let expirationDate = tokenExpirationDate else {
             return false
         }
-        
         let currentDate = Date()
-        let fiveMinutes: TimeInterval = 300
-        return currentDate.addingTimeInterval(fiveMinutes) >= expirationDate
+        let fiveMins: TimeInterval = 300
+        return currentDate.addingTimeInterval(fiveMins) >= expirationDate
     }
     
     public func exchangeCodeForToken(code: String, completion: @escaping ((Bool) -> Void)) {
@@ -110,7 +109,7 @@ final class AuthManager {
     private var onRefreshBlocks = [((String) -> Void)]()
     
     
-    //Suplies valid token for API calls 
+    //Suplies valid token for API calls
     public func withValidToken(completion: @escaping (String) -> Void) {
         guard !refreshingToken else {
             onRefreshBlocks.append(completion)
@@ -129,20 +128,21 @@ final class AuthManager {
         }
     }
     
-    public func refreshIfNeeded(completion:  ((Bool) -> Void)?){
-        
+    public func refreshIfNeeded(completion: ((Bool) -> Void)?){
         guard !refreshingToken else {
             return
         }
+        
         guard shouldRefreshToken else {
             completion?(true)
             return
         }
+        
         guard let refreshToken = self.refreshToken else {
             return
         }
         
-        // Refresh the access token
+        // Refresh the token
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
@@ -153,40 +153,41 @@ final class AuthManager {
         components.queryItems = [
             URLQueryItem(name: "grant_type",
                          value: "refresh_token"),
-            URLQueryItem(name: "refresh_token", value: refreshToken)
+            URLQueryItem(name: "refresh_token",
+                         value: refreshToken),
         ]
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content_Type")
+        request.setValue("application/x-www-form-urlencoded",
+                         forHTTPHeaderField: "Content-Type")
+        request.httpBody = components.query?.data(using: .utf8)
         
-        let basicToken = "\(Constants.clientID):\(Constants.clientSecret)"
+        let basicToken = Constants.clientID + ":" + Constants.clientSecret
         let data = basicToken.data(using: .utf8)
-        guard let base64 = data?.base64EncodedString() else {
+        
+        guard let base64String = data?.base64EncodedString() else {
             print("Failure to get base64")
             completion?(false)
             return
         }
         
-        request.httpBody = components.query?.data(using: .utf8)
-        request.setValue("Basic \(base64)", forHTTPHeaderField: "Authorization")
+        request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             self?.refreshingToken = false
-            guard let data = data,
-                  error == nil else {
+            guard let data = data, error == nil else {
                 completion?(false)
                 return
             }
-            
-            
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                self?.onRefreshBlocks.forEach { $0(result.access_token) }
+                self?.onRefreshBlocks.forEach{ $0(result.access_token) }
                 self?.onRefreshBlocks.removeAll()
                 self?.cacheToken(result: result)
                 completion?(true)
-            } catch {
+            }
+            catch {
                 print(error.localizedDescription)
                 completion?(false)
             }
