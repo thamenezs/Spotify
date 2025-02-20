@@ -49,7 +49,7 @@ final class APICaller {
     
     public func getNewReleases(completion: @escaping ((Result<NewReleasesResponse, Error>)) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/browse/new-releases?limit=50"), type: .GET) { request in
-            let task = URLSession.shared.dataTask(with: request) { data, urlResponse, error in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let data, error == nil else {
                     completion(.failure(apiError.failedToGetData))
                     return
@@ -62,6 +62,28 @@ final class APICaller {
                     completion(.failure(error))
                 }
             }
+            task.resume()
+        }
+    }
+    
+    public func getSeveralCategories(completion: @escaping ((Result<CategoriesResponse, Error>)) -> Void) {
+        createRequest(with: URL(string: Constants.baseAPIURL + "/browse/categories?locale=pt_BR"), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let data, error == nil else {
+                    completion(.failure(apiError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(CategoriesResponse.self, from: data)
+                    print(result)
+                    completion(.success(result))
+                } catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            
             task.resume()
         }
     }
