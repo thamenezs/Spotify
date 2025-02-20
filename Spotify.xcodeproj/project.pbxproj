@@ -41,6 +41,7 @@
 		D6B6FE322D650BCC0036E3B8 /* CategoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE312D650BCC0036E3B8 /* CategoriesResponse.swift */; };
 		D6B6FE352D676E220036E3B8 /* NewReleasesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE342D676E220036E3B8 /* NewReleasesCollectionViewCell.swift */; };
 		D6B6FE372D676E410036E3B8 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE362D676E410036E3B8 /* CategoriesCollectionViewCell.swift */; };
+		D6B6FE392D6770620036E3B8 /* NewReleasesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		D6B6FE312D650BCC0036E3B8 /* CategoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesResponse.swift; sourceTree = "<group>"; };
 		D6B6FE342D676E220036E3B8 /* NewReleasesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6B6FE362D676E410036E3B8 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 		D6385E2D2D514FE100120301 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				D6385E562D52473900120301 /* Extensions.swift in Sources */,
 				D6385E362D51788400120301 /* LibraryViewController.swift in Sources */,
 				D6385E522D51797600120301 /* Artist.swift in Sources */,
+				D6B6FE392D6770620036E3B8 /* NewReleasesCellViewModel.swift in Sources */,
 				D6B6FE372D676E410036E3B8 /* CategoriesCollectionViewCell.swift in Sources */,
 				D6385E442D5178F600120301 /* PlaylistViewController.swift in Sources */,
 				D6385DFE2D514FB600120301 /* SceneDelegate.swift in Sources */,

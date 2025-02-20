@@ -10,11 +10,11 @@ import UIKit
 class HomeViewController: UIViewController {
     
     enum BrowseSectionType {
-        case newReleases
-        case categories
+        case newReleases(viewModels: [NewReleasesCellViewModel])
+        case categories(viewModels: [NewReleasesCellViewModel])
     }
     
-    private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { 
+    private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout {
         sectionIndex, _ -> NSCollectionLayoutSection? in
         return HomeViewController.createSectionLayout(section: sectionIndex)
     }
@@ -26,6 +26,8 @@ class HomeViewController: UIViewController {
         spinner.hidesWhenStopped = true
         return spinner
     }()
+    
+    private var sections = [BrowseSectionType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,8 @@ class HomeViewController: UIViewController {
     private func configureCollectioView() {
         view.addSubview(collectionView)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(NewReleasesCollectionViewCell.self, forCellWithReuseIdentifier: NewReleasesCollectionViewCell.identifier)
+        collectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .systemBackground
@@ -57,17 +61,62 @@ class HomeViewController: UIViewController {
     
     
     private func fetchData() {
+        
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        var newReleases: NewReleasesResponse?
+        var categories: CategoriesResponse?
+        
         //Get new releases
-        // Get categories
         APICaller.shared.getNewReleases { result in
+            defer {
+                group.leave()
+            }
+            
             switch result {
-            case .success(let model): break
-            case .failure(let error): break
+            case .success(let model):
+                newReleases = model
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-        APICaller.shared.getSeveralCategories { _ in
+        
+        // Get categories
+        APICaller.shared.getSeveralCategories { recommendedResult in
+            defer {
+                group.leave()
+            }
             
+            switch recommendedResult {
+            case .success(let model):
+                categories = model
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
+        
+        group.notify(queue: .main) {
+            guard let newAlbums = newReleases?.albums.items,
+                  let categories = categories?.categories.items else {
+                fatalError("Models are nil")
+            }
+            self.cofigureModels(newAlbums: newAlbums, categories: categories)
+        }
+        
+    }
+    
+    private func cofigureModels(newAlbums: [Album], categories: [Category]){
+        sections.append(.newReleases(viewModels: newAlbums.compactMap({
+            return NewReleasesCellViewModel(
+                name: $0.name,
+                artworkURL: URL(string: $0.images.first?.url ?? ""),
+                numberOfTracks: $0.total_tracks,
+                artistName: $0.artists.first?.name ?? "-"
+            )
+        })))
+        sections.append(.categories(viewModels: []))
+        collectionView.reloadData()
     }
     
     @objc func didTapSettings() {
@@ -80,21 +129,40 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        let type = sections[section]
+        
+        switch type {
+        case .newReleases(let viewModels):
+            return viewModels.count
+        case .categories(let viewModels):
+            return viewModels.count
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        if indexPath.section == 0 {
-            cell.backgroundColor = .systemOrange
-        } else if indexPath.section == 1 {
-            cell.backgroundColor = .systemPink
+        let type = sections[indexPath.section]
+        
+        switch type {
+        case .newReleases(let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewReleasesCollectionViewCell.identifier, for: indexPath) as? NewReleasesCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            let viewModel = viewModels[indexPath.row]
+            cell.configure(wiht: viewModel)
+            return cell
+            
+        case .categories(let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .orange
+            return cell
+            
         }
-        return cell
     }
     
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
