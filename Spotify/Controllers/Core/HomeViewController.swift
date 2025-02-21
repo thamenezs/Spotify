@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     
     enum BrowseSectionType {
         case newReleases(viewModels: [NewReleasesCellViewModel])
-        case categories(viewModels: [NewReleasesCellViewModel])
+        case categories(viewModels: [CategoriesCellViewModel])
     }
     
     private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout {
@@ -115,7 +115,9 @@ class HomeViewController: UIViewController {
                 artistName: $0.artists.first?.name ?? "-"
             )
         })))
-        sections.append(.categories(viewModels: []))
+        sections.append(.categories(viewModels: categories.compactMap({
+            return CategoriesCellViewModel(name: $0.name, icons: URL(string: $0.icons.first?.url ?? ""))
+        })))
         collectionView.reloadData()
     }
     
@@ -159,7 +161,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCollectionViewCell.identifier, for: indexPath) as? CategoriesCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .orange
+            let viewModel = viewModels[indexPath.row]
+            cell.configure(wiht: viewModel)
             return cell
             
         }

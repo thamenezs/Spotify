@@ -42,6 +42,7 @@
 		D6B6FE352D676E220036E3B8 /* NewReleasesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE342D676E220036E3B8 /* NewReleasesCollectionViewCell.swift */; };
 		D6B6FE372D676E410036E3B8 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE362D676E410036E3B8 /* CategoriesCollectionViewCell.swift */; };
 		D6B6FE392D6770620036E3B8 /* NewReleasesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */; };
+		D6B6FE3B2D67EABE0036E3B8 /* CategoriesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6FE3A2D67EABE0036E3B8 /* CategoriesCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		D6B6FE342D676E220036E3B8 /* NewReleasesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6B6FE362D676E410036E3B8 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCellViewModel.swift; sourceTree = "<group>"; };
+		D6B6FE3A2D67EABE0036E3B8 /* CategoriesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				D6B6FE382D6770620036E3B8 /* NewReleasesCellViewModel.swift */,
+				D6B6FE3A2D67EABE0036E3B8 /* CategoriesCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				D6385E462D51790A00120301 /* SearchResultsViewController.swift in Sources */,
 				D6B6FE302D63F9EC0036E3B8 /* APIImage.swift in Sources */,
 				D6385E3C2D5178CB00120301 /* WelcomeViewController.swift in Sources */,
+				D6B6FE3B2D67EABE0036E3B8 /* CategoriesCellViewModel.swift in Sources */,
 				D6385E402D5178E300120301 /* ProfileViewController.swift in Sources */,
 				D6385E322D51784300120301 /* TabBarViewController.swift in Sources */,
 				D6385E4C2D51794C00120301 /* HapticsManager.swift in Sources */,
