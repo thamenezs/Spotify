@@ -14,6 +14,9 @@ class HomeViewController: UIViewController {
         case categories(viewModels: [CategoriesCellViewModel])
     }
     
+    private var newAlbums: [Album] = []
+    private var categories: [Category] = []
+    
     private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout {
         sectionIndex, _ -> NSCollectionLayoutSection? in
         return HomeViewController.createSectionLayout(section: sectionIndex)
@@ -106,7 +109,11 @@ class HomeViewController: UIViewController {
         
     }
     
+   
+    
     private func cofigureModels(newAlbums: [Album], categories: [Category]){
+        self.newAlbums = newAlbums
+        self.categories = categories
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             return NewReleasesCellViewModel(
                 name: $0.name,
@@ -165,6 +172,28 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(wiht: viewModel)
             return cell
             
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        
+        switch section {
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            let vc = AlbumViewController(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case .categories:
+            let category = categories[indexPath.row]
+            let vc = CategoryViewController(category: category)
+            vc.title = category.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
         }
     }
     

@@ -7,6 +7,15 @@
 
 import Foundation
 
-struct AudioTrack {
+struct AudioTrack: Codable {
+    let artists: [Artist]
+    let available_markets: [String]
+    let duration_ms: Int
+    let disc_number: Int
+    let explicit: Bool
+    let external_urls: [String: String]
+    let id: String
+    let name: String
+    let type: String
     
 }
